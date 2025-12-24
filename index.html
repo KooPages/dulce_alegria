@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>A Tu Orden Y A Tu Gusto</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif}
+        body{background-color:#f8f9fa;color:#333;line-height:1.6;overflow-x:hidden}
+        .container{max-width:1200px;margin:0 auto;padding:0 15px}
+        header{background-color:#25D366;color:white;padding:12px 0;text-align:center}
+        .logo{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:3px}
+        .logo i{font-size:2rem}
+        .logo h1{font-size:1.8rem;font-weight:700}
+        .slogan{font-size:1rem;opacity:.9;margin-bottom:5px}
+        .sponsor-banner{background-color:#075E54;padding:6px;margin-top:3px;font-size:.9rem}
+        .sponsor-banner a{color:white;text-decoration:none;font-weight:600}
+        .products-section{padding:30px 0;display:flex;flex-direction:column;align-items:center}
+        .section-title{text-align:center;margin-bottom:25px;color:#25D366;font-size:1.8rem;font-weight:700;padding-bottom:8px;border-bottom:2px solid #25D366;width:100%}
+        .product-card{width:100%;max-width:600px;background-color:white;border:1px solid #ddd;border-radius:8px;overflow:hidden;box-shadow:0 5px 15px rgba(0,0,0,.08);margin:0 auto 25px}
+        .product-img-container{position:relative;width:100%;height:400px;overflow:hidden;cursor:pointer}
+        .product-img{width:100%;height:100%;object-fit:cover;transition:transform .3s ease}
+        .product-img:hover{transform:scale(1.03)}
+        .img-overlay{position:absolute;bottom:8px;right:8px;background-color:rgba(0,0,0,.7);color:white;padding:5px 10px;border-radius:4px;font-size:.85rem;display:flex;align-items:center;gap:5px}
+        .product-info{padding:20px}
+        .product-name{font-size:1.5rem;font-weight:700;margin-bottom:12px;color:#333;text-align:center}
+        .product-price{color:#25D366;font-size:1.8rem;font-weight:800;margin-bottom:20px;text-align:center}
+        .quantity-selector{display:flex;align-items:center;justify-content:center;margin-bottom:20px}
+        .quantity-btn{background-color:#f0f0f0;border:1px solid #ddd;width:40px;height:40px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1.5rem;font-weight:bold;transition:background-color .2s}
+        .quantity-btn:hover{background-color:#e0e0e0}
+        .quantity-input{width:60px;height:40px;text-align:center;border:1px solid #ddd;margin:0 10px;font-size:1.2rem;font-weight:bold}
+        .whatsapp-btn{display:block;width:100%;background-color:#25D366;color:white;text-align:center;padding:15px;text-decoration:none;font-weight:700;font-size:1.1rem;border:none;cursor:pointer;margin-top:10px;transition:background-color .3s;border-radius:4px}
+        .whatsapp-btn:hover{background-color:#1da851}
+        .whatsapp-btn i{margin-right:8px}
+        .image-modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,.9);z-index:1000;justify-content:center;align-items:center}
+        .modal-content{max-width:90%;max-height:90%;position:relative}
+        .modal-img{width:100%;height:100%;object-fit:contain}
+        .close-modal{position:absolute;top:15px;right:35px;color:white;font-size:40px;font-weight:bold;cursor:pointer;z-index:1001}
+        .close-modal:hover{color:#25D366}
+        footer{background-color:#075E54;color:white;padding:20px 0;text-align:center;margin-top:30px}
+        .footer-content{max-width:800px;margin:0 auto}
+        .footer-logo{font-size:1.8rem;margin-bottom:8px}
+        .footer-title{font-size:1.2rem;margin-bottom:10px;font-weight:600}
+        .channel-link{display:inline-flex;align-items:center;justify-content:center;background-color:#25D366;color:white;text-decoration:none;padding:10px 20px;font-weight:600;font-size:.95rem;margin-top:8px;border-radius:4px;transition:background-color .3s}
+        .channel-link:hover{background-color:#1da851}
+        .channel-link i{margin-right:6px}
+        .copyright{margin-top:15px;font-size:.85rem;opacity:.8}
+        @media (max-width:768px){
+            .logo h1{font-size:1.5rem}
+            .section-title{font-size:1.5rem}
+            .product-img-container{height:350px}
+            .product-info{padding:15px}
+            .product-name{font-size:1.3rem}
+            .product-price{font-size:1.6rem}
+        }
+        @media (max-width:480px){
+            .product-img-container{height:300px}
+            .product-name{font-size:1.2rem}
+            .product-price{font-size:1.5rem}
+            .sponsor-banner{font-size:.8rem;padding:5px}
+            .img-overlay{font-size:.75rem;padding:4px 8px}
+            footer{padding:15px 0}
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <i class="fab fa-whatsapp"></i>
+                <h1>A Tu Orden Y A Tu Gusto</h1>
+            </div>
+            <p class="slogan">Pedidos rápidos y fáciles por WhatsApp</p>
+            <div class="sponsor-banner">
+                Patrocinado por <a href="https://koopages.github.io/oficial/" target="_blank">KOOPAGES</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="products-section">
+        <div class="container">
+            <h2 class="section-title">DULCE ALEGRIA 👇</h2>
+            <!-- Productos -->
+            <div class="product-card">
+                <div class="product-img-container">
+                    <img src="1.jpg" class="product-img" alt="Pudin con chocolate y bombones">
+                    <div class="img-overlay"><i class="fas fa-expand"></i>Ampliar</div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Pudin con chocolate y bombones</h3>
+                    <div class="product-price">$900/CUP</div>
+                    <div class="quantity-selector">
+                        <button class="quantity-btn minus">-</button>
+                        <input type="number" class="quantity-input" value="1" min="1">
+                        <button class="quantity-btn plus">+</button>
+                    </div>
+                    <button class="whatsapp-btn order-btn"><i class="fab fa-whatsapp"></i> Pedir por WhatsApp</button>
+                </div>
+            </div>
+            
+            <div class="product-card">
+                <div class="product-img-container">
+                    <img src="2.jpg" class="product-img" alt="Pudin con galletas de chocolate y maní">
+                    <div class="img-overlay"><i class="fas fa-expand"></i>Ampliar</div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Pudin con galletas de chocolate y maní en el medio</h3>
+                    <div class="product-price">$900/CUP</div>
+                    <div class="quantity-selector">
+                        <button class="quantity-btn minus">-</button>
+                        <input type="number" class="quantity-input" value="1" min="1">
+                        <button class="quantity-btn plus">+</button>
+                    </div>
+                    <button class="whatsapp-btn order-btn"><i class="fab fa-whatsapp"></i> Pedir por WhatsApp</button>
+                </div>
+            </div>
+            
+            <div class="product-card">
+                <div class="product-img-container">
+                    <img src="3.jpg" class="product-img" alt="Pudin con oso de chocolate">
+                    <div class="img-overlay"><i class="fas fa-expand"></i>Ampliar</div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Pudin con oso de chocolate</h3>
+                    <div class="product-price">$1000/CUP</div>
+                    <div class="quantity-selector">
+                        <button class="quantity-btn minus">-</button>
+                        <input type="number" class="quantity-input" value="1" min="1">
+                        <button class="quantity-btn plus">+</button>
+                    </div>
+                    <button class="whatsapp-btn order-btn"><i class="fab fa-whatsapp"></i> Pedir por WhatsApp</button>
+                </div>
+            </div>
+            
+            <div class="product-card">
+                <div class="product-img-container">
+                    <img src="4.jpg" class="product-img" alt="Pudin con maní">
+                    <div class="img-overlay"><i class="fas fa-expand"></i>Ampliar</div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Pudin con maní agre</h3>
+                    <div class="product-price">$650/CUP</div>
+                    <div class="quantity-selector">
+                        <button class="quantity-btn minus">-</button>
+                        <input type="number" class="quantity-input" value="1" min="1">
+                        <button class="quantity-btn plus">+</button>
+                    </div>
+                    <button class="whatsapp-btn order-btn"><i class="fab fa-whatsapp"></i> Pedir por WhatsApp</button>
+                </div>
+            </div>
+            
+            <div class="product-card">
+                <div class="product-img-container">
+                    <img src="5.jpg" class="product-img" alt="Pudin con fanguito y galletas">
+                    <div class="img-overlay"><i class="fas fa-expand"></i>Ampliar</div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Pudin con fanguito y galletas de vainilla o chocolate</h3>
+                    <div class="product-price">$850/CUP</div>
+                    <div class="quantity-selector">
+                        <button class="quantity-btn minus">-</button>
+                        <input type="number" class="quantity-input" value="1" min="1">
+                        <button class="quantity-btn plus">+</button>
+                    </div>
+                    <button class="whatsapp-btn order-btn"><i class="fab fa-whatsapp"></i> Pedir por WhatsApp</button>
+                </div>
+            </div>
+            
+            <div class="product-card">
+                <div class="product-img-container">
+                    <img src="6.jpg" class="product-img" alt="Pudin de caramelo">
+                    <div class="img-overlay"><i class="fas fa-expand"></i>Ampliar</div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Pudin de caramelo</h3>
+                    <div class="product-price">$500/CUP</div>
+                    <div class="quantity-selector">
+                        <button class="quantity-btn minus">-</button>
+                        <input type="number" class="quantity-input" value="1" min="1">
+                        <button class="quantity-btn plus">+</button>
+                    </div>
+                    <button class="whatsapp-btn order-btn"><i class="fab fa-whatsapp"></i> Pedir por WhatsApp</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="image-modal" id="imageModal">
+        <span class="close-modal" id="closeModal">&times;</span>
+        <div class="modal-content">
+            <img src="" class="modal-img" id="modalImg" alt="Vista ampliada del producto">
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo"><i class="fab fa-whatsapp"></i></div>
+                <h3 class="footer-title">Sigue nuestro canal oficial</h3>
+                <a href="https://whatsapp.com/channel/0029VbC5WgCId7nIm2SvxQ1l" target="_blank" class="channel-link">
+                    <i class="fab fa-whatsapp"></i>》A Tu Orden Y A Tu Gusto《
+                </a>
+                <div class="copyright">
+                    <p>&copy; 2025 A Tu Orden Y A Tu Gusto.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const whatsappNumber = "+5363690386";
+            const orderButtons = document.querySelectorAll('.order-btn');
+            const plusButtons = document.querySelectorAll('.quantity-btn.plus');
+            const minusButtons = document.querySelectorAll('.quantity-btn.minus');
+            const quantityInputs = document.querySelectorAll('.quantity-input');
+            const imageModal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImg');
+            const closeModal = document.getElementById('closeModal');
+            const imgContainers = document.querySelectorAll('.product-img-container');
+
+            // Modal de imagen
+            imgContainers.forEach(container => {
+                container.addEventListener('click', function() {
+                    const imgSrc = this.querySelector('img').src;
+                    modalImg.src = imgSrc;
+                    imageModal.style.display = 'flex';
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+            
+            closeModal.addEventListener('click', () => closeImageModal());
+            imageModal.addEventListener('click', (e) => {
+                if (e.target === imageModal) closeImageModal();
+            });
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && imageModal.style.display === 'flex') closeImageModal();
+            });
+            
+            function closeImageModal() {
+                imageModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+
+            // Botones de WhatsApp
+            orderButtons.forEach((button, index) => {
+                button.addEventListener('click', function() {
+                    const card = this.closest('.product-card');
+                    const productName = card.querySelector('.product-name').textContent;
+                    const productPrice = card.querySelector('.product-price').textContent.replace('$', '').replace('/CUP', '');
+                    const quantity = card.querySelector('.quantity-input').value;
+                    const priceValue = parseFloat(productPrice.replace(',', '.'));
+                    const totalPrice = (priceValue * quantity).toFixed(2);
+                    const message = `¡Hola! Me gustaría ordenar:\n\n*Producto:* ${productName}\n*Cantidad:* ${quantity} unidad(es)\n*Precio unitario:* $${productPrice}\n*Total:* $${totalPrice}\n\nLe contacté desde su web`;
+                    const encodedMessage = encodeURIComponent(message);
+                    const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+                    window.open(whatsappURL, '_blank');
+                });
+            });
+            
+            // Cantidad
+            plusButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const input = this.previousElementSibling;
+                    input.value = parseInt(input.value) + 1;
+                });
+            });
+            
+            minusButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const input = this.nextElementSibling;
+                    if (parseInt(input.value) > 1) input.value = parseInt(input.value) - 1;
+                });
+            });
+            
+            quantityInputs.forEach(input => {
+                input.addEventListener('change', function() {
+                    if (this.value < 1 || isNaN(this.value)) this.value = 1;
+                });
+            });
+        });
+    </script>
+</body>
+</html>
